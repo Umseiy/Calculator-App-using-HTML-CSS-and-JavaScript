@@ -1,48 +1,51 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-const Counter = () => {
+export default function ClickCounter() {
   const [count, setCount] = useState(0);
+  const [step, setStep] = useState(1);
 
-  const increase = () => {
-    setCount(count + 1);
-  };
+  const increment = () => setCount(count + step);
+  const decrement = () => setCount(count - step);
 
-  const decrease = () => {
-    if (count > 0) {
-      setCount(count - 1);
+  const handleStepChange = (e) => {
+    const value = parseInt(e.target.value, 10);
+    if (!isNaN(value)) {
+      setStep(value);
+    } else {
+      setStep(1); // Fallback if input is cleared or invalid
     }
   };
 
-  const reset = () => {
-    setCount(0);
-  };
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold mb-4">Counter: {count}</h1>
-      <div className="flex space-x-4">
-        <button
-          onClick={decrease}
-          className={`px-4 py-2 rounded-2xl text-white ${count === 0 ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-600'}`}
-          disabled={count === 0}
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+      <h1 className="text-3xl font-bold mb-4">Click Counter</h1>
+      
+      <div className="text-5xl font-bold mb-4">{count}</div>
+      
+      <div className="flex space-x-4 mb-4">
+        <button 
+          onClick={decrement} 
+          className="bg-red-500 text-white px-4 py-2 rounded-2xl shadow hover:bg-red-600 transition"
         >
-          Decrease
+          - Decrease
         </button>
-        <button
-          onClick={increase}
-          className="px-4 py-2 bg-green-500 text-white rounded-2xl hover:bg-green-600"
+        <button 
+          onClick={increment} 
+          className="bg-green-500 text-white px-4 py-2 rounded-2xl shadow hover:bg-green-600 transition"
         >
-          Increase
+          + Increase
         </button>
-        <button
-          onClick={reset}
-          className="px-4 py-2 bg-blue-500 text-white rounded-2xl hover:bg-blue-600"
-        >
-          Reset
-        </button>
+      </div>
+
+      <div className="flex items-center space-x-2">
+        <label className="text-lg font-medium">Step:</label>
+        <input 
+          type="number" 
+          value={step} 
+          onChange={handleStepChange}
+          className="border rounded px-2 py-1 w-20 text-center"
+        />
       </div>
     </div>
   );
-};
-
-export default Counter;
+}￼Enter
