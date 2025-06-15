@@ -1,45 +1,35 @@
-npx create-react-app my-counter-app
-      cd my-counter-app
-import React, { useState } from 'react';
-import './App.css';
+import tkinter as tk
 
-function App() {
-  const [count, setCount] = useState(0);
+# Create the main application window
+app = tk.Tk()
+app.title("Click Counter App")
 
-  const increment = () => {
-    setCount(count + 1);
-  };
+# Initialize the score (counter)
+score = 0
 
-  const decrement = () => {
-    setCount(count - 1);
-  };
+# Function to increase the score
+def increase():
+    global score
+    score += 1
+    label.config(text=f"Score: {score}")
 
-  const reset = () => {
-    setCount(0);
-  };
+# Function to decrease the score
+def decrease():
+    global score
+    score -= 1
+    label.config(text=f"Score: {score}")
 
-  return (
-    <div className="App">
-      <h1>Click Counter</h1>
-      <h2>Count: {count}</h2>
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
-      <button onClick={reset}>Reset</button>
-    </div>
-  );
-}
+# Display label for the score
+label = tk.Label(app, text=f"Score: {score}", font=("Arial", 24))
+label.pack(pady=20)
 
-export default App;
+# Increase button
+increase_button = tk.Button(app, text="Increase", command=increase, font=("Arial", 16), bg="lightgreen")
+increase_button.pack(pady=10)
 
+# Decrease button
+decrease_button = tk.Button(app, text="Decrease", command=decrease, font=("Arial", 16), bg="tomato")
+decrease_button.pack(pady=10)
 
-  const handleIncrease = () => setCount(count + 1);
-  const handleDecrease = () => setCount(count - 1);
-
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-200 to-blue-200 p-8">
-      <h1 className="text-4xl font-bold text-gray-900 mb-8">Click Counter App</h1>
-      <CounterDisplay count={count} />
-      <CounterControls onIncrease={handleIncrease} onDecrease={handleDecrease} />
-    </div>
-  );
-}
+# Run the application
+app.mainloop()
